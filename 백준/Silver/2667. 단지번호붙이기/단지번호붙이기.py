@@ -1,40 +1,39 @@
 from collections import deque
 
-def bfs(board, visited, i, j):
-    queue = deque()
-    queue.append((i, j))
-    cnt = 0
-    visited[i][j] = True
 
+def bfs(i, j, graph, visited):
+    queue = deque()
+    queue.append((i,j))
+    visited[i][j] = True
+    cnt = 0
+
+    dx = [0, -1, 0, 1]
+    dy = [-1, 0, 1, 0]
     while queue:
         x, y = queue.popleft()
         cnt += 1
         for k in range(4):
-            nx = x + dx[k]
-            ny = y + dy[k]
-            if 0 <= nx < n and 0 <= ny < n and board[nx][ny] == 1 and not visited[nx][ny]:
+            nx, ny = x + dx[k], y + dy[k]
+            if 0 <= nx < len(graph) and 0 <= ny < len(graph[0]) and graph[nx][ny] == 1 and not visited[nx][ny]:
                 visited[nx][ny] = True
                 queue.append((nx, ny))
     return cnt
 
-n = int(input())
-board = []
-for _ in range(n):
-    row = list(map(int, input().strip()))
-    board.append(row)
+size = int(input())
 
-visited = [[False] * n for _ in range(n)]
+graph = [list(map(int, input().strip())) for _ in range(size)]
 
-dx = [0, -1, 0, 1]
-dy = [1, 0, -1, 0]
+visited = [[False] * size for _ in range(size)]
 
-components = []
-for i in range(n):
-    for j in range(n):
-        if board[i][j] == 1 and not visited[i][j]:
-            components.append(bfs(board, visited, i, j))
+total_count = 0
+building_size = []
+for i in range(size):
+    for j in range(size):
+        if graph[i][j] == 1 and not visited[i][j]:
+            total_count += 1
+            building_size.append(bfs(i, j, graph, visited))
 
-components.sort()
-print(len(components))
-for component in components:
-    print(component)
+building_size.sort()
+print(total_count)
+for size in building_size:
+    print(size)
