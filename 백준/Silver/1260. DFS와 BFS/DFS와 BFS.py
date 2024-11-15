@@ -1,37 +1,40 @@
 from collections import deque
 
-def dfs(graph, start, visited):
-    stack = [start]
+
+def dfs(board, visited, v):
+    stack = [v]
     while stack:
         v = stack.pop()
         if not visited[v]:
             visited[v] = True
             print(v, end=' ')
-            for i in sorted(graph[v], reverse=True):
-                if not visited[i]:
-                    stack.append(i)
+            for value in sorted(board[v], reverse=True):
+                if not visited[value]:
+                    stack.append(value)
 
-def bfs(graph, start, visited):
-    queue = deque([start])
-    visited[start] = True
+def bfs(board, visited, v):
+    queue = deque([v])
     while queue:
         v = queue.popleft()
-        print(v, end=' ')
-        for i in sorted(graph[v]):
-            if not visited[i]:
-                queue.append(i)
-                visited[i] = True
+        if not visited[v]:
+            visited[v] = True
+            print(v, end=' ')
+            for value in sorted(board[v]):
+                if not visited[value]:
+                    queue.append(value)
 
-n, m, start = map(int, input().split())
-graph = [[] for _ in range(n + 1)]
+n, m, v = map(int, input().split())
 
-for _ in range(m):
+board = [[] for _ in range(n + 1)]
+
+for i in range(m):
     a, b = map(int, input().split())
-    graph[a].append(b)
-    graph[b].append(a)
+    board[a].append(b)
+    board[b].append(a)
 
 visited = [False] * (n + 1)
-dfs(graph, start, visited)
+
+dfs(board, visited, v)
 print()
 visited = [False] * (n + 1)
-bfs(graph, start, visited)
+bfs(board, visited, v)
