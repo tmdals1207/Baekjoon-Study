@@ -1,7 +1,7 @@
-n, x = map(int, input().split())
+num, com = map(int, input().split())
 
-arr = list(map(int, input().split()))
+data = list(map(int, input().split()))
 
-for i in arr:
-  if(i < x):
-    print(i, end = " ")
+for i in data:
+    if i < com:
+        print(i, end = " ")
