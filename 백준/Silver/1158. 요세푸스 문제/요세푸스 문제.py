@@ -1,11 +1,8 @@
 from collections import deque
 
 n, k = map(int, input().split())
-
 queue = deque(range(1, n + 1))
-  
 count = 0
-
 answer = []
 
 while queue :
