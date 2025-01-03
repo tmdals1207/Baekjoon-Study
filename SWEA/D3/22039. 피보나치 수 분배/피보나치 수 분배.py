@@ -18,21 +18,20 @@ def can_partition(N):
     target = total_sum // 2
     A = []
     B = []
-
+ 
     for i in range(N, 0, -1):
         if target >= fib[i]:
             A.append(i)
             target -= fib[i]
         else:
             B.append(i)
-
+ 
     result = ['B'] * N
     for a in A:
         result[a - 1] = 'A'
-
+ 
     return ''.join(result)
-
-
+ 
 T = int(input())
 for _ in range(T):
     N = int(input())
