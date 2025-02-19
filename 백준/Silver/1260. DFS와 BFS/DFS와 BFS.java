@@ -12,6 +12,7 @@ public class Main {
 	static int N, M, V;
 	static int[][] graph;
 	static boolean[] visited;
+	static StringBuilder sb = new StringBuilder();
 	
 	private static void dfs(int v) {
 		Stack<Integer> stack = new Stack<>();
@@ -22,7 +23,7 @@ public class Main {
 			
 			if(!visited[node]) {
 				visited[node] = true;
-				System.out.print(node + " ");
+				sb.append(node + " ");
 				for(int i = graph.length-1; i > 0; i--) {
 					if(graph[node][i] == 1 && !visited[i]) {
 						stack.push(i);
@@ -38,7 +39,7 @@ public class Main {
 		visited[v] = true;
 		while(!queue.isEmpty()) {
 			int node = queue.poll();
-			System.out.print(node + " ");
+			sb.append(node + " ");
 			for(int i = 1; i <= graph.length-1; i++) {
 				if(graph[node][i] == 1 && !visited[i]) {
 					queue.offer(i);
@@ -71,12 +72,13 @@ public class Main {
 
 		dfs(V);
 		
-		System.out.println();
+		sb.append("\n");
 		
 		visited = new boolean[N+1];
 		
 		bfs(V);
 
+		System.out.println(sb);
 	}
 
 }
