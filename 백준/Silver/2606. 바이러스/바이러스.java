@@ -2,21 +2,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
 	static int pc, pair;
-	static int[][] graph;
+	static List<List<Integer>> graph;
 	static boolean[] visited;
 	
 	private static int dfs(int n) {
 		visited[n] = true;
 		int count = 1;
-		for (int next = 1; next <= pc; next++) {
-			if(!visited[next] && graph[n][next] == 1) {
-				count += dfs(next);
-			}
-		}
+		for (int next : graph.get(n)) {
+            if (!visited[next]) {
+                count += dfs(next);
+            }
+        }
 		return count;
 	}
 	
@@ -28,17 +30,22 @@ public class Main {
 		
 		pc = Integer.parseInt(br.readLine());
 		pair = Integer.parseInt(br.readLine());
-		graph = new int[pc+1][pc+1];
+		graph = new ArrayList<>();
+        
+        for (int i = 0; i <= pc; i++) {
+            graph.add(new ArrayList<>());
+        }
 		
 		for(int i = 0; i < pair; i++) {
 			st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
-			graph[a][b] = 1;
-			graph[b][a] = 1;
+			graph.get(a).add(b);
+            graph.get(b).add(a);
 		}
 		
 		visited = new boolean[pc + 1];
 		System.out.print(dfs(1) - 1);
 	}
+
 }
