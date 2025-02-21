@@ -1,40 +1,45 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        int T = scanner.nextInt();
+	static int zero, one;
+	static int[][] dp = new int[41][2];
+	
+	static void fibonacci (int x) {
+		dp[0][0] = 1;
+		dp[0][1] = 0;
+		
+		dp[1][0] = 0;
+		dp[1][1] = 1;
+		
+		for (int i = 2; i <= x; i++) {
+			dp[i][0] =dp[i-2][0] + dp[i-1][0];
+			dp[i][1] =dp[i-2][1] + dp[i-1][1];
+		}
+		
+		zero = dp[x][0];
+		one = dp[x][1];
+		
+	}
+	
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		int T = Integer.parseInt(br.readLine());
+		
+		for (int i = 0; i < T; i++) {
+			fibonacci(Integer.parseInt(br.readLine()));
+			bw.append(zero + " " + one + "\n");
+		}
+		
+		bw.flush();
+		bw.close();
+	}
 
-        for (int i = 0; i < T; i++) {
-            int N = scanner.nextInt();
-
-            int[] result = fibonacci(N);
-            System.out.println(result[0] + " " + result[1]);
-        }
-
-        scanner.close();
-    }
-
-    private static int[] fibonacci(int n) {
-        int[] count = new int[2];
-        int[][] fib = new int[n + 1][2];
-
-        fib[0][0] = 1;
-        fib[0][1] = 0;
-        if (n > 0) {
-            fib[1][0] = 0;
-            fib[1][1] = 1;
-        }
-
-        for (int i = 2; i <= n; i++) {
-            fib[i][0] = fib[i - 1][0] + fib[i - 2][0];
-            fib[i][1] = fib[i - 1][1] + fib[i - 2][1];
-        }
-
-        count[0] = fib[n][0];
-        count[1] = fib[n][1];
-
-        return count;
-    }
 }
