@@ -28,7 +28,6 @@ public class Main {
 				}
 			}
 		}
-		
 	}
 
 	private static void infectionBfs(int[][] map) {
@@ -60,6 +59,7 @@ public class Main {
 				}
 			}
 		}
+
 		int safeZone = 0;
 		for (int k = 0; k < N; k++) {
 			for (int j = 0; j < M; j++) {
