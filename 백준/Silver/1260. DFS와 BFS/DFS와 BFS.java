@@ -37,9 +37,11 @@ public class Main {
 		Queue<Integer> queue = new LinkedList<>();
 		queue.add(v);
 		visited[v] = true;
+        
 		while(!queue.isEmpty()) {
 			int node = queue.poll();
 			sb.append(node + " ");
+            
 			for(int i = 1; i <= graph.length-1; i++) {
 				if(graph[node][i] == 1 && !visited[i]) {
 					queue.offer(i);
@@ -66,6 +68,7 @@ public class Main {
 			st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken());
 			int b = Integer.parseInt(st.nextToken());
+            
 			graph[a][b] = 1;
 			graph[b][a] = 1;
 		}
