@@ -1,13 +1,14 @@
 import java.util.*;
+import java.io.*;
 
 class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int testCase = scanner.nextInt();
+        int testCase = Integer.parseInt(br.readLine());
 
         for (int i = 0; i < testCase; i++){
-            System.out.println(sum(scanner.nextInt()));
+            System.out.println(sum(Integer.parseInt(br.readLine())));
         }
     }
 
