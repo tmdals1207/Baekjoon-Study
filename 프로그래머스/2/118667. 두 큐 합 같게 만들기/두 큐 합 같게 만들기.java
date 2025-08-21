@@ -3,6 +3,7 @@ import java.io.*;
 
 class Solution {
     public int solution(int[] arr1, int[] arr2) {
+        
         Queue<Long> queue1 = new LinkedList<>();
         Queue<Long> queue2 = new LinkedList<>();
         
@@ -17,7 +18,7 @@ class Solution {
         long sum1 = 0;
         long sum2 = 0;
         long diff = 0;
-        int cnt = 0;
+        int answer = 0;
         
         // 큐1의 합 구하기
         for (long q1 : queue1) {
@@ -29,11 +30,10 @@ class Solution {
             sum2 += q2;
         }
         
-        // 두 큐의 합이 같아질 때 까지
         while(sum1 != sum2) {
             
-            if(cnt > (queue1.size() + queue2.size())*4) {
-                cnt = -1;
+            if(answer > (queue1.size() + queue2.size())*4) {
+                answer = -1;
                 break;
             }
             
@@ -49,9 +49,9 @@ class Solution {
                 sum2 += num;
                 queue2.offer(queue1.poll());
             }
-            cnt++;
+            answer++;            
         }
         
-        return cnt;
+        return answer;
     }
 }
