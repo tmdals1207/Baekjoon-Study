@@ -1,29 +1,19 @@
-// 방법 1 : 배열을 2중 for문으로 순회하며 포함하는지 확인 - > 시간초과
-// 방법 2 : 배열을 정렬하고 다음에 올 문자열을 확인 - > 가능할듯?
-// contains를 사용하니 접두사가 아니여도 false로 만들어버림
-// 해결하기 위해서 
-
 import java.util.*;
-import java.io.*;
 
 class Solution {
     public boolean solution(String[] phone_book) {
+        boolean answer = true;
         
         List<String> list = new ArrayList<>();
         
-        boolean answer = true;
-        
-        for (String s : phone_book) {
-            list.add(s);
+        for (int i = 0; i < phone_book.length; i++) {
+            list.add(phone_book[i].replace(" ", ""));
         }
+        Collections.sort(list);
         
-        List<String> sortedList = new ArrayList<>(list);
-        Collections.sort(sortedList);
-        
-        for (int i = 0; i < sortedList.size()-1; i++) {
-            String str = sortedList.get(i);
-            if (sortedList.get(i+1).startsWith(str)) {
-                answer = false;
+        for (int j = 0; j < list.size() - 1; j++) {
+            if(list.get(j + 1).startsWith(list.get(j))) {
+                return false;
             }
         }
         
