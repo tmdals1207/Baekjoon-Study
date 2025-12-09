@@ -1,47 +1,46 @@
 import java.util.*;
 
 class Solution {
-    
     public int solution(int n, int[][] computers) {
+        int answer = 0;
         
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
         boolean[] visited = new boolean[n];
         
-        for (int i = 0; i < n; i++) {
-            graph.add(new ArrayList<Integer>());
-        }
-        
-        for (int j = 0; j < n; j++) { 
+        for (int j = 0; j < n; j++) {
             for (int k = 0; k < n; k++) {
-                int a = computers[j][k]; 
-                if (a == 1) {
+                if (j == k) continue;
+                if (computers[j][k] == 1) {
                     graph.get(j).add(k);
+                    graph.get(k).add(j);
                 }
             }
         }
         
-        int answer = 0;
-        
-        for (int i = 0; i < n; i++) {
-            if (!visited[i]) {
+        for (int a = 0; a < n; a++) {
+            if(!visited[a]) {
+                dfs(a, graph, visited);
                 answer++;
-                dfs(i, graph, visited);
             }
         }
+        
         return answer;
     }
     
-    public void dfs(int start, ArrayList<ArrayList<Integer>> graph, boolean[] visited) {
-        Deque<Integer> st = new ArrayDeque<>();
-        st.push(start);
+    public void dfs(int start, List<List<Integer>> graph, boolean[] visited) {
+        Deque<Integer> queue = new ArrayDeque<>();
+        queue.push(start);
         visited[start] = true;
         
-        while (!st.isEmpty()) {
-            int cur = st.pop();
+        while(!queue.isEmpty()) {
+            int cur = queue.pop();
             for (int nxt : graph.get(cur)) {
                 if (!visited[nxt]) {
                     visited[nxt] = true;
-                    st.push(nxt);
+                    queue.push(nxt);
                 }
             }
         }
